@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -7,9 +8,14 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: "1rem", // Default padding
+          sm: "3rem",      // Small screens
+          md: "1rem",      // Medium screens
+          lg: "1rem",      // Large screens
+        },
       },
     },
   },

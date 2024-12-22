@@ -7,7 +7,7 @@ const Footer = () => {
         {/* Footer Link Section */}
         <div className="navLinks">
           <div className="flex justify-center gap-2 items-center">
-            <p>Copyright @BearUp@2025 - AlL Rights Reaserved by </p>
+            <p>Copyright BearUp@2025 - ALL Rights Reaserved by </p>
           </div>
         </div>
       </div>

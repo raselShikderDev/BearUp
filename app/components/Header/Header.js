@@ -3,7 +3,7 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <header className='bg-blue-950/20 py-2 text-white'>
+    <header className='bg-blue-950/20 py-2 fixed top-0 left-0 z-50 w-full text-white'>
       <div className="container">
         <nav className='flex justify-between items-center'>
           {/* Logo Section */}

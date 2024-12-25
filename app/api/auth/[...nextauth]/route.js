@@ -6,8 +6,23 @@ import NextAuth from "next-auth";
 // import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
 import payment from "@/models/payment";
-import user from "@/models/user";
+import userModel from "@/models/user";
 
+// MongoDb Connection Function
+const connectToMongoDb = async () => {
+  try {
+    // Connect to the Database
+    if (mongoose.connection.readyState === 0) {
+      await mongoose.connect("mongodb://localhost:27017/bearup");
+    }
+    console.log("Database Connected");
+  } catch (error) {
+    console.error("Database Connection Error:", error);
+    throw new Error("Faild to Connect Database");
+  }
+};
+
+// NextAuth Configuaration
 export const authoptions = NextAuth({
   providers: [
     // OAuth authentication providers...
@@ -36,26 +51,40 @@ export const authoptions = NextAuth({
 
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      const isAllowedToSignIn = true;
-      if (account.provider === "github") {
-        // Connect to the Database
-        const client = mongoose.connect("mongodb://localhost:27017/bearup");
+      try {
+        // ensuing user used Github
+        if (account.provider === "github") {
+          await connectToMongoDb();
 
-        // Cheak weather user alredy exists or not
-        const currentUser = user.findOne({ email: email });
-        if (!currentUser) {
-          //Create New User
-          const newUser = new user({
-            username: profile.login,
-            email: email.split("@")[0],
-          });
-          await newUser.save()
-          user.name = newUser.username
-        } else {
-          user.name = currentUser.username
+          // Cheak weather user alredy exists or not
+          const existingUser = await userModel.findOne({ email: user.email });
+          if (!existingUser) {
+            //Create New User if current user doesn't exist
+            const newUser = new user({
+              username: profile.login,
+              email: user.email,
+            });
+            await newUser.save();
+            user.name = newUser.username;
+          } else {
+            user.name = existingUser.username;
+          }
         }
-        return true
+        return true;
+      } catch (error) {
+        console.log("SignIn Error", error);
+        return false;
       }
+    },
+
+    async session({ session, user }) {
+      const dbUser = await userModel.findOne({ email: session.user.email });
+      session.user = {
+        id: dbUser._id,
+        username: dbUser.username,
+        email: dbUser.email,
+      };
+      return session;
     },
   },
 });

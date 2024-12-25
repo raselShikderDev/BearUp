@@ -13,6 +13,13 @@ const Header = () => {
   //     <button onClick={() => signOut()}>Sign out</button>
   //   </>
   // }
+
+  // Handling Logout Btn
+  const handleLogOutBtn = () => {
+    signOut()
+    console.log("Successfully Logout");
+    
+  }
   return (
     <header className="bg-gray-900 py-2 fixed top-0 left-0 z-50 w-full text-white">
       <div className="container">
@@ -93,7 +100,7 @@ const Header = () => {
                         className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                       >
                         <button
-                          onClick={() => signOut()}
+                          onClick={handleLogOutBtn}
                           type="button"
                           className="text-white "
                         >

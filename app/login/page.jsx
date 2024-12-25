@@ -12,6 +12,13 @@ const Login = () => {
     }
   }, [session, router]);
 
+  // Handling LogIN
+  // n Btn
+    const handleLogInBtn = () => {
+      signIn()
+      console.log("Successfully SignIn");
+    }
+
   return (
     <section className="py-14 text-white">
       <div className="container">
@@ -70,7 +77,7 @@ const Login = () => {
 
             {/* GitHub Button */}
             <button
-              onClick={() => signIn("github")}
+              onClick={handleLogInBtn}
               className="flex items-center bg-gray-800 text-white border border-gray-800 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-600"
             >
               <svg

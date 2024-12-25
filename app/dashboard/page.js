@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const Dashboard = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
@@ -12,6 +12,14 @@ const Dashboard = () => {
       router.push("/login");
     }
   }, [session, router]);
+   if (status === "loading") {
+    return <p>Loading...</p>;
+  }
+  const { username, email, id } = session.user;
+  if (username.length > 2) {
+    console.log(username, email, id);
+    
+  }
   return (
     <section>
       <div className="container">
@@ -23,28 +31,28 @@ const Dashboard = () => {
               className="bg-transparent focus:outline-none w-full py-1 border border-gray-700 px-3 rounded "
               type="text"
               name="fullName"
-              id=""
+               
               placeholder="Full Name"
               />
               <input
               className="bg-transparent focus:outline-none w-full py-1 border border-gray-700 px-3 rounded "
               type="email"
               name="email"
-              id=""
+               
               placeholder="Email Address"
               />
               <input
               className="bg-transparent focus:outline-none w-full py-1 border border-gray-700 px-3 rounded "
               type="username"
               name="username"
-              id=""
+               
               placeholder="username"
             />
             <input
               className="bg-transparent focus:outline-none w-full py-1 border border-gray-700 px-3 rounded "
               type="number"
               name="number"
-              id=""
+               
               placeholder="Number"
             />
             
@@ -52,35 +60,35 @@ const Dashboard = () => {
               className="bg-transparent focus:outline-none w-full py-1 border border-gray-700 px-3 rounded "
               type="text"
               name="country"
-              id=""
+               
               placeholder="Your Country"
             />
               <input
               className="bg-transparent focus:outline-none w-full py-1 border border-gray-700 px-3 rounded "
               type="address"
               name="text"
-              id=""
+               
               placeholder="Full Address"
               />
               <input
               className="bg-transparent focus:outline-none w-full py-1 border border-gray-700 px-3 rounded "
               type="text"
               name="credentials"
-              id=""
+               
               placeholder="Payment Method"
               />
               <input
               className="bg-transparent focus:outline-none w-full py-1 border border-gray-700 px-3 rounded "
               type="password"
               name="methodId"
-              id=""
+               
               placeholder="Payment ID"
               />
               <input
               className="bg-transparent focus:outline-none w-full py-1 border border-gray-700 px-3 rounded "
               type="password"
               name="methodKey"
-              id=""
+               
               placeholder="Payment Key"
               />
               <button type="button" className="text-white bg-gradient-to-br w-full from-purple-900 to-blue-900 hover:bg-gradient-to-br active:scale-95 hover:from-purple-700 hover:to-blue-700  dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Save</button>

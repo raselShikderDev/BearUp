@@ -15,11 +15,7 @@ const Dashboard = () => {
    if (status === "loading") {
     return <p>Loading...</p>;
   }
-  const { username, email, id } = session.user;
-  if (username.length > 2) {
-    console.log(username, email, id);
-    
-  }
+  
   return (
     <section>
       <div className="container">

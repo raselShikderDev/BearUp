@@ -16,10 +16,14 @@ const Header = () => {
 
   // Handling Logout Btn
   const handleLogOutBtn = () => {
-    signOut()
-    console.log("Successfully Logout");
-    
-  }
+    console.log("Successfully Clicked on SignOut Button");
+    try {
+      signOut();
+      console.log("Successfully Logout");
+    } catch (error) {
+      throw new Error("SignOut Faild");
+    }
+  };
   return (
     <header className="bg-gray-900 py-2 fixed top-0 left-0 z-50 w-full text-white">
       <div className="container">
@@ -37,7 +41,7 @@ const Header = () => {
               <li className="relative">
                 <button
                   onClick={() => setShowDropDown((prev) => !prev)}
-                  onBlur={()=>setTimeout(()=> setShowDropDown(false), 500)}
+                  onBlur={() => setTimeout(() => setShowDropDown(false), 500)}
                   id="dropdownDefaultButton"
                   datadropdowntoggle="dropdown"
                   className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center flex justify-center items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 "

@@ -60,7 +60,7 @@ export const authoptions = NextAuth({
           const existingUser = await userModel.findOne({ email: user.email });
           if (!existingUser) {
             //Create New User if current user doesn't exist
-            const newUser = new user({
+            const newUser = new userModel({
               username: profile.login,
               email: user.email,
             });
@@ -78,13 +78,23 @@ export const authoptions = NextAuth({
     },
 
     async session({ session, user }) {
-      const dbUser = await userModel.findOne({ email: session.user.email });
+      try {
+        const dbUser = await userModel.findOne({ email: session.user.email });
+        if (!dbUser) {
+          console.error("User not foun in Database")
+          return session
+        }
       session.user = {
         id: dbUser._id,
-        username: dbUser.username,
+        username: dbUser.username || user.name,
         email: dbUser.email,
       };
+      console.log(session.user);
       return session;
+      } catch (error) {
+        console.error("Session Error: ", error);
+        return error
+      }
     },
   },
 });

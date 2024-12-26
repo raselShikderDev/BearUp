@@ -15,8 +15,13 @@ const Login = () => {
   // Handling LogIN
   // n Btn
     const handleLogInBtn = () => {
-      signIn()
+      console.log("Successfully Clicked on LogIn Button");
+      try {
+        signIn()
       console.log("Successfully SignIn");
+      } catch (error) {
+        throw new Error("SignIn Faild");
+      }
     }
 
   return (

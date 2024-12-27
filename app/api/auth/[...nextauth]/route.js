@@ -7,20 +7,20 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import payment from "@/models/payment";
 import userModel from "@/models/user";
-
+import connectDB from "@/app/db/connectDB"; 
 // MongoDb Connection Function
-const connectToMongoDb = async () => {
-  try {
-    // Connect to the Database
-    if (mongoose.connection.readyState === 0) {
-      await mongoose.connect("mongodb://localhost:27017/bearup");
-    }
-    console.log("Database Connected");
-  } catch (error) {
-    console.error("Database Connection Error:", error);
-    throw new Error("Faild to Connect Database");
-  }
-};
+// const connectToMongoDb = async () => {
+//   try {
+//     // Connect to the Database
+//     if (mongoose.connection.readyState === 0) {
+//       await mongoose.connect("mongodb://localhost:27017/bearup");
+//     }
+//     console.log("Database Connected");
+//   } catch (error) {
+//     console.error("Database Connection Error:", error);
+//     throw new Error("Faild to Connect Database");
+//   }
+// };
 
 // NextAuth Configuaration
 export const authoptions = NextAuth({
@@ -54,7 +54,7 @@ export const authoptions = NextAuth({
       try {
         // ensuing user used Github
         if (account.provider === "github") {
-          await connectToMongoDb();
+          await connectDB();
 
           // Cheak weather user alredy exists or not
           const existingUser = await userModel.findOne({ email: user.email });

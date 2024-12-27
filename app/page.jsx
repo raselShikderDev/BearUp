@@ -19,7 +19,7 @@ export default function Home() {
             </p>
             <div className="space-x-3">
               <Link
-                href="#"
+                href="/login"
                 className="px-4 py-1 font-semibold active:scale-105 hover:bg-white transition-all hover:text-black bg-gradient-to-br from-blue-950/60 to-blue-800 rounded"
               >
                 Join Us
